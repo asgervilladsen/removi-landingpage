@@ -1,5 +1,7 @@
+import Image from 'next/image';
 import AnimateIn from './components/AnimateIn';
 import StickyProduct from './components/StickyProduct';
+import Navbar from './components/Navbar';
 
 export default function Home() {
   return (
@@ -17,24 +19,6 @@ export default function Home() {
   );
 }
 
-function Navbar() {
-  return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-[#e8e8ed]">
-      <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
-        <span className="text-sm font-semibold tracking-wide" style={{ color: '#1d1d1f' }}>
-          Removi
-        </span>
-        <a
-          href="#contact"
-          className="text-xs font-medium px-5 py-2 rounded-full text-white transition-opacity hover:opacity-80"
-          style={{ backgroundColor: '#27B9B6' }}
-        >
-          Get in touch
-        </a>
-      </div>
-    </nav>
-  );
-}
 
 function Hero() {
   return (
@@ -42,7 +26,7 @@ function Hero() {
       <div className="max-w-3xl flex flex-col items-center gap-7">
         <AnimateIn direction="fade" delay={0}>
           <p className="text-xs font-medium uppercase tracking-[0.18em]" style={{ color: '#27B9B6' }}>
-            Remote Vitals Solutions · DTU
+            Remote Vitals Solutions
           </p>
         </AnimateIn>
         <AnimateIn direction="up" delay={100}>
@@ -163,6 +147,24 @@ function Product() {
   );
 }
 
+const team = [
+  {
+    name: 'Asger Villadsen',
+    role: 'Mechanical Engineer',
+    tag: 'Founder',
+  },
+  {
+    name: 'Rasmus Nørgaard',
+    role: 'Biomedical Engineer',
+    tag: 'Founder',
+  },
+  {
+    name: 'Mads Tofte Gregers',
+    role: 'PhD · Medical Health Advisor',
+    tag: 'Advisor',
+  },
+];
+
 function Team() {
   return (
     <section className="py-32 px-6" style={{ backgroundColor: '#f5f5f7' }}>
@@ -179,14 +181,33 @@ function Team() {
             combining expertise in medical technology, software engineering, and healthcare systems.
           </p>
         </AnimateIn>
-        <AnimateIn direction="up" delay={150}>
-          <div
-            className="rounded-3xl p-16 text-center bg-white"
-            style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}
-          >
-            <p className="text-sm" style={{ color: '#6e6e73' }}>Team profiles coming soon</p>
-          </div>
-        </AnimateIn>
+        <div className="grid md:grid-cols-3 gap-6">
+          {team.map((person, i) => (
+            <AnimateIn key={person.name} direction="up" delay={i * 100}>
+              <div
+                className="rounded-3xl p-8 bg-white flex flex-col items-center text-center gap-4"
+                style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}
+              >
+                <div
+                  className="w-16 h-16 rounded-full flex items-center justify-center text-white text-lg font-semibold"
+                  style={{ backgroundColor: '#27B9B6' }}
+                >
+                  {person.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
+                </div>
+                <div>
+                  <p className="font-semibold text-base" style={{ color: '#1d1d1f' }}>{person.name}</p>
+                  <p className="text-sm mt-1" style={{ color: '#6e6e73' }}>{person.role}</p>
+                </div>
+                <span
+                  className="text-xs font-medium px-3 py-1 rounded-full"
+                  style={{ backgroundColor: '#27B9B615', color: '#27B9B6' }}
+                >
+                  {person.tag}
+                </span>
+              </div>
+            </AnimateIn>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -218,11 +239,28 @@ function Partners() {
 
         <AnimateIn direction="up" delay={150}>
           <div
-            className="mt-20 rounded-3xl p-16 text-center"
+            className="mt-20 rounded-3xl p-12"
             style={{ backgroundColor: '#f5f5f7' }}
           >
-            <p className="text-xs uppercase tracking-widest mb-2" style={{ color: '#6e6e73' }}>Partners</p>
-            <p className="text-sm" style={{ color: '#6e6e73' }}>Partner logos coming soon</p>
+            <p className="text-xs uppercase tracking-widest mb-10 text-center" style={{ color: '#6e6e73' }}>Partners</p>
+            <div className="flex flex-wrap justify-center items-center gap-10">
+              <div
+                className="bg-white rounded-2xl px-8 py-6 flex items-center gap-4"
+                style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.06)', minWidth: '180px' }}
+              >
+                <Image
+                  src="/dtu-skylab.png"
+                  alt="DTU Skylab"
+                  width={56}
+                  height={56}
+                  className="object-contain rounded-xl"
+                />
+                <div className="text-left">
+                  <p className="font-semibold text-sm" style={{ color: '#1d1d1f' }}>DTU Skylab</p>
+                  <p className="text-xs mt-0.5" style={{ color: '#6e6e73' }}>DTU's Innovation Hub</p>
+                </div>
+              </div>
+            </div>
           </div>
         </AnimateIn>
       </div>
@@ -235,7 +273,7 @@ function Footer() {
     <footer className="py-8 px-6 border-t border-[#e8e8ed]">
       <div className="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-2 text-xs" style={{ color: '#6e6e73' }}>
         <span className="font-semibold" style={{ color: '#1d1d1f' }}>Removi</span>
-        <span>Remote Vitals Solutions · Technical University of Denmark</span>
+        <span>Remote Vitals Solutions</span>
         <span>© {new Date().getFullYear()}</span>
       </div>
     </footer>
