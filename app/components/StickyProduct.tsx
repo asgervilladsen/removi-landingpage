@@ -66,10 +66,21 @@ export default function StickyProduct() {
 }
 
 function DeviceVisual({ activeIndex }: { activeIndex: number }) {
+  // SVG path d-strings for the large 600×60 live trace (baseline y=30)
   const ekgPaths = [
-    "0,30 100,30 160,30 185,5 200,55 215,10 240,30 340,30 420,30 445,5 460,55 475,10 500,30 600,30",
-    "0,30 80,30 120,30 140,18 155,42 162,12 175,30 260,30 300,30 320,18 335,42 342,12 355,30 440,30 500,30 520,18 535,42 542,12 555,30 600,30",
-    "0,30 60,30 90,22 105,38 115,15 128,45 138,30 200,30 230,22 245,38 255,15 268,45 278,30 340,30 370,22 385,38 395,15 408,45 418,30 500,30 530,22 545,38 555,15 568,45 578,30 600,30",
+    // Normal sinus rhythm – 2 regular beats
+    "M 0,30 L 40,30 C 50,30 52,22 62,22 C 72,22 74,30 80,30 L 94,30 L 98,34 L 104,2 L 110,42 L 116,30 L 132,30 C 142,30 145,19 157,19 C 169,19 172,30 182,30 L 310,30 C 320,30 322,22 332,22 C 342,22 344,30 350,30 L 364,30 L 368,34 L 374,2 L 380,42 L 386,30 L 402,30 C 412,30 415,19 427,19 C 439,19 442,30 452,30 L 600,30",
+    // Slightly faster – 3 beats
+    "M 0,30 L 18,30 C 26,30 28,22 36,22 C 44,22 46,30 52,30 L 63,30 L 67,34 L 73,2 L 79,42 L 85,30 L 98,30 C 107,30 110,19 120,19 C 130,19 133,30 142,30 L 196,30 C 204,30 206,22 214,22 C 222,22 224,30 230,30 L 241,30 L 245,34 L 251,2 L 257,42 L 263,30 L 276,30 C 285,30 288,19 298,19 C 308,19 311,30 320,30 L 374,30 C 382,30 384,22 392,22 C 400,22 402,30 408,30 L 419,30 L 423,34 L 429,2 L 435,42 L 441,30 L 454,30 C 463,30 466,19 476,19 C 486,19 489,30 498,30 L 600,30",
+    // AFib – irregular R-R intervals, no P waves
+    "M 0,30 L 58,30 L 62,34 L 68,2 L 74,42 L 80,30 L 95,30 C 105,30 108,20 117,20 C 126,20 129,30 137,30 L 222,30 L 226,34 L 232,2 L 238,42 L 244,30 L 259,30 C 269,30 272,20 281,20 C 290,20 293,30 301,30 L 358,30 L 362,34 L 368,2 L 374,42 L 380,30 L 395,30 C 405,30 408,20 417,20 C 426,20 429,30 437,30 L 516,30 L 520,34 L 526,2 L 532,42 L 538,30 L 553,30 C 563,30 566,20 575,20 C 584,20 587,30 595,30 L 600,30",
+  ];
+
+  // Separate paths for the tiny device screen (viewBox 0 0 120 40, baseline y=20)
+  const devicePaths = [
+    "M 0,20 L 12,20 C 19,20 21,14 28,14 C 35,14 37,20 43,20 L 50,20 L 53,23 L 57,2 L 61,32 L 65,20 L 73,20 C 79,20 81,13 87,13 C 93,13 95,20 101,20 L 120,20",
+    "M 0,20 L 6,20 C 13,20 15,14 21,14 C 27,14 29,20 34,20 L 40,20 L 43,23 L 47,2 L 51,32 L 55,20 L 62,20 C 68,20 70,13 76,13 C 82,13 84,20 90,20 L 100,20 L 103,23 L 107,3 L 111,32 L 115,20 L 120,20",
+    "M 0,20 L 28,20 L 31,23 L 35,2 L 39,32 L 43,20 L 54,20 C 60,20 62,13 68,13 C 74,13 76,20 82,20 L 98,20 L 101,23 L 105,2 L 109,32 L 113,20 L 120,20",
   ];
 
   const colors = ['#27B9B6', '#E151B2', '#27B9B6'];
@@ -89,11 +100,11 @@ function DeviceVisual({ activeIndex }: { activeIndex: number }) {
       >
         <div className="w-20 h-10 rounded-lg bg-black/40 flex items-center justify-center">
           <svg viewBox="0 0 120 40" className="w-full px-2">
-            <polyline
-              points={ekgPaths[activeIndex]}
+            <path
+              d={devicePaths[activeIndex]}
               fill="none"
               stroke={colors[activeIndex]}
-              strokeWidth="2.5"
+              strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
             />
@@ -107,9 +118,9 @@ function DeviceVisual({ activeIndex }: { activeIndex: number }) {
           Live ECG trace
         </p>
         <svg viewBox="0 0 600 60" className="w-full" preserveAspectRatio="none">
-          <polyline
+          <path
             key={activeIndex}
-            points={ekgPaths[activeIndex]}
+            d={ekgPaths[activeIndex]}
             fill="none"
             stroke={colors[activeIndex]}
             strokeWidth="2"
