@@ -29,12 +29,13 @@ export default function Navbar() {
           className="flex items-center justify-between gap-10 transition-all duration-500"
           style={{ height: scrolled ? '44px' : '56px' }}
         >
-          <span
-            className="text-sm font-semibold tracking-wide transition-all duration-500"
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="text-sm font-semibold tracking-wide transition-all duration-500 cursor-pointer bg-transparent border-none p-0"
             style={{ color: '#1d1d1f', fontSize: scrolled ? '13px' : '14px' }}
           >
             Removi
-          </span>
+          </button>
           <a
             href="#contact"
             className="text-xs font-medium px-5 py-2 rounded-full text-white transition-opacity hover:opacity-80"
