@@ -150,12 +150,12 @@ function Product() {
 const team = [
   {
     name: 'Asger Villadsen',
-    role: 'Mechanical Engineer',
+    role: 'MSc. Mechanical Engineer',
     tag: 'Founder',
   },
   {
     name: 'Rasmus Nørgaard',
-    role: 'Biomedical Engineer',
+    role: 'MSc. Biomedical Engineer',
     tag: 'Founder',
   },
   {
